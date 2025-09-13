@@ -16,4 +16,8 @@
   3、将拷贝的公钥；
   4、测试是否联通：本地执行以下命令：
     ssh -T git@github.com
+
+四、clone仓库
+    1、github 的code下找到Clone，拷贝url
+    2、本地执行git clone url
     
