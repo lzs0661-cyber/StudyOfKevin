@@ -20,4 +20,8 @@
 四、clone仓库
     1、github 的code下找到Clone，拷贝url
     2、本地执行git clone url
-    
+五、git的常见名利
+   git config --global -l
+   git config --system -l
+   git config --global user.name /user.email "XXXX"
+   
