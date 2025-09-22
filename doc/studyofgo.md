@@ -272,4 +272,26 @@ append可以动态将元素加到数组末尾
    - **每行表达式的求值顺序则按从左到右直行**
    - **Switch/select语句中的表达式求值属于“懒式加载”**，也就是从左到右，一旦遇到满足条件的值，后续的求值就忽略，提高性能；
    - fallthrough 将执行权直接转移到下一个case执行语句中，会略过case的求值和判断语句。
-   - 
+  
+## go编译打包过程
+
+  ```mermaid
+  graph LR
+  库文件-->goBuild[go build]-->点a[临时生成 .a文件]-->goinstall[go install]-->pkg[.a 文件会放到$GOPATH/pkg/目录下]
+
+  main[执行文件]-->build-->link-->可执行文件
+  ```
+  - 标准库包的源文件在\$GOROOT/src下，对应的.a文件放在\$GOROOT/pkg/darwin_amd64或linux_amd64
+
+  - go install 过程中link -L的顺序决定了go连接搜索的.a文件的顺序。
+  
+## 路径和包名
+  从编译过程可以知道路径包含两部分：
+    - 基础搜索路径
+      - 所有包的搜索路径都包含\$GOROOT/src目录
+      - >go 1.13版本有两种模式：
+        - 金典gopath模式(GO111MODULE=off):$GOPATH/src
+        - module-aware模式下(GO111MODULE=on):$GOPATH/pkg/mod
+    - 包导入路径
+      - 包导入路径最后一部分依然是目录名，不是包名，只是go一般习惯是该路径名称与包名保持一致
+      - 
